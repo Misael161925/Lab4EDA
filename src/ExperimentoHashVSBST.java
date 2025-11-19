@@ -15,20 +15,17 @@ public class ExperimentoHashVSBST {
                 "Busqueda BST (ms)");
         System.out.println("-------------------------------------------------------------------------------------------------");
 
-        // ---------------------------------------------
-        //           CASO PROMEDIO (IDs aleatorias)
-        // ---------------------------------------------
         for (int N : N_values) {
 
-            // Hash debe ser proporcional al tamaño
             HashPacientesEncadenado hash = new HashPacientesEncadenado(N * 2 + 1);
-            ArbolPacientes bst = new ArbolPacientes();
+
+            Map<String, Paciente> bst = new TreeMap<>();
 
             List<String> ids = new ArrayList<>();
             List<Paciente> pacientes = new ArrayList<>();
 
             for (int i = 0; i < N; i++) {
-                String id = "RUT-" + i;       // IDs únicas → NO colisiones de clave
+                String id = "RUT-" + i;
                 ids.add(id);
 
                 pacientes.add(new Paciente(
@@ -39,31 +36,26 @@ public class ExperimentoHashVSBST {
                 ));
             }
 
-            // Inserción HASH
             long inicioHash = System.nanoTime();
             for (Paciente p : pacientes) hash.put(p.getId(), p);
             long finHash = System.nanoTime();
             double tiempoInsertHashMs = (finHash - inicioHash) / 1_000_000.0;
 
-            // Inserción BST
             long inicioBST = System.nanoTime();
-            for (Paciente p : pacientes) bst.insertar(p);
+            for (Paciente p : pacientes) bst.put(p.getId(), p);
             long finBST = System.nanoTime();
             double tiempoInsertBSTMs = (finBST - inicioBST) / 1_000_000.0;
 
-            // IDs para búsquedas aleatorias
             List<String> idsBusqueda = new ArrayList<>();
             for (int i = 0; i < k; i++) idsBusqueda.add(ids.get(rand.nextInt(ids.size())));
 
-            // Búsqueda HASH
             long inicioBusqHash = System.nanoTime();
             for (String id : idsBusqueda) hash.get(id);
             long finBusqHash = System.nanoTime();
             double tiempoBusqHashMs = (finBusqHash - inicioBusqHash) / 1_000_000.0;
 
-            // Búsqueda BST
             long inicioBusqBST = System.nanoTime();
-            for (String id : idsBusqueda) bst.buscar(id);
+            for (String id : idsBusqueda) bst.get(id);
             long finBusqBST = System.nanoTime();
             double tiempoBusqBSTMs = (finBusqBST - inicioBusqBST) / 1_000_000.0;
 
@@ -80,41 +72,37 @@ public class ExperimentoHashVSBST {
                 "Busqueda BST (ms)");
         System.out.println("-------------------------------------------------------------------------------------------------");
 
-        // ---------------------------------------------
-        //           PEOR CASO BST
-        // ---------------------------------------------
         for (int N : N_values) {
 
             HashPacientesEncadenado hash = new HashPacientesEncadenado(N * 2 + 1);
-            ArbolPacientes bst = new ArbolPacientes();
+
+            Map<String, Paciente> bst = new TreeMap<>();
 
             List<String> idsOrdenados = new ArrayList<>();
             List<Paciente> pacientesOrdenados = new ArrayList<>();
 
-            // IDs en orden → peor caso BST = árbol totalmente degenerado
             for (int i = 0; i < N; i++) {
                 String id = String.format("RUT-%09d", i);
                 idsOrdenados.add(id);
 
-                pacientesOrdenados.add(new Paciente(id,
+                pacientesOrdenados.add(new Paciente(
+                        id,
                         "Paciente" + i,
                         1 + rand.nextInt(5),
-                        System.currentTimeMillis() + rand.nextInt(10000)));
+                        System.currentTimeMillis() + rand.nextInt(10000)
+                ));
             }
 
-            // HASH insert
             long inicioHash = System.nanoTime();
             for (Paciente p : pacientesOrdenados) hash.put(p.getId(), p);
             long finHash = System.nanoTime();
             double tiempoInsertHashMs = (finHash - inicioHash) / 1_000_000.0;
 
-            // BST insert peor caso
             long inicioBST = System.nanoTime();
-            for (Paciente p : pacientesOrdenados) bst.insertar(p);
+            for (Paciente p : pacientesOrdenados) bst.put(p.getId(), p);
             long finBST = System.nanoTime();
             double tiempoInsertBSTMs = (finBST - inicioBST) / 1_000_000.0;
 
-            // Búsquedas aleatorias entre los mismos N
             List<String> idsBusqueda = new ArrayList<>();
             for (int i = 0; i < k; i++) idsBusqueda.add(idsOrdenados.get(rand.nextInt(idsOrdenados.size())));
 
@@ -124,7 +112,7 @@ public class ExperimentoHashVSBST {
             double tiempoBusqHashMs = (finBusqHash - inicioBusqHash) / 1_000_000.0;
 
             long inicioBusqBST = System.nanoTime();
-            for (String id : idsBusqueda) bst.buscar(id);
+            for (String id : idsBusqueda) bst.get(id);
             long finBusqBST = System.nanoTime();
             double tiempoBusqBSTMs = (finBusqBST - inicioBusqBST) / 1_000_000.0;
 
