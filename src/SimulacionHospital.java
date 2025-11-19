@@ -39,13 +39,11 @@ public class SimulacionHospital {
         acumulado[0] = probabilidades[0];
         for (int i = 1; i < 5; i++) acumulado[i] = acumulado[i - 1] + probabilidades[i];
 
-        int LIMITE_ESPERA = 180;  // 3 horas
+        int LIMITE_ESPERA = 180;  
 
         for (int t = 0; t <= tiempoTotal; t++) {
 
-            // ------------------------------
-            // 1. Llega un nuevo paciente
-            // ------------------------------
+            
             if (t % intervaloLlegada == 0) {
                 String id = "RUT-" + rand.nextInt(Integer.MAX_VALUE);
                 String nombre = "Paciente-" + t;
@@ -63,9 +61,7 @@ public class SimulacionHospital {
                 hospital.registrarPaciente(p);
             }
 
-            // ----------------------------------------------------------
-            // BONUS: Subir categoría si lleva demasiado tiempo esperando
-            // ----------------------------------------------------------
+            
             if (usarBonus) {
                 for (Paciente px : hospital.salaEspera.values()) {
                     long tiempoEspera = t - px.getTiempoLlegada();
@@ -74,15 +70,13 @@ public class SimulacionHospital {
                         px.setCategoria(px.getCategoria() - 1);
                         px.registrarCambio("Subió de categoría por esperar más de 3 horas");
 
-                        // Reinsertarlo al heap con su nueva prioridad
+                        
                         hospital.colaAtencion.insertar(px);
                     }
                 }
             }
 
-            // ------------------------------
-            // 2. Atender a un paciente
-            // ------------------------------
+            
             if (t % intervaloAtencion == 0 && !hospital.colaAtencion.estaVacia()) {
                 Paciente p = hospital.atenderSiguiente();
                 long espera = t - p.getTiempoLlegada();
@@ -93,9 +87,7 @@ public class SimulacionHospital {
             }
         }
 
-        // ---------------------------------
-        // Contar los que quedaron esperando
-        // ---------------------------------
+       
         for (Paciente p : hospital.salaEspera.values()) {
             enEsperaPorCategoria.put(p.getCategoria(),
                     enEsperaPorCategoria.get(p.getCategoria()) + 1);
