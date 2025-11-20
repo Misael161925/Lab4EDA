@@ -27,18 +27,40 @@ public class Paciente implements Comparable<Paciente> {
         return Long.compare(this.tiempoLlegada, o.tiempoLlegada);
     }
 
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
+    public String getId() { 
+        return id; 
+    }
+    public void setId(String id) { 
+        this.id = id; 
+    }
 
-    public String getNombre() { return nombre; }
-    public void setNombre(String nombre) { this.nombre = nombre; }
+    public String getNombre() { 
+        return nombre; 
+    }
+    public void setNombre(String nombre) { 
+        this.nombre = nombre; 
+    }
 
-    public int getCategoria() { return categoria; }
-    public void setCategoria(int categoria) { this.categoria = categoria; }
+    public int getCategoria() { 
+        return categoria; 
+    }
+    
+    public void setCategoria(int categoria) {
+        this.categoria = categoria; 
+    }
 
-    public long getTiempoLlegada() { return tiempoLlegada; }
-    public void setTiempoLlegada(long tiempoLlegada) { this.tiempoLlegada = tiempoLlegada; }
+    public long getTiempoLlegada() { 
+        return tiempoLlegada; 
+    }
+    
+    public void setTiempoLlegada(long tiempoLlegada) { 
+        this.tiempoLlegada = tiempoLlegada; 
+    }
 
-    public Stack<String> getHistorialCambios() { return historialCambios; }
-    public void setHistorialCambios(Stack<String> historialCambios) { this.historialCambios = historialCambios; }
+    public Stack<String> getHistorialCambios() { 
+        return historialCambios; 
+    }
+    public void setHistorialCambios(Stack<String> historialCambios) { 
+        this.historialCambios = historialCambios; 
+    }
 }
