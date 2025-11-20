@@ -37,11 +37,11 @@ public class ColaPrioridadPacientes {
     Paciente extraerMin() {
         if (estaVacia()) return null;
 
-        Paciente root = heap[0];
+        Paciente raiz = heap[0];
         heap[0] = heap[tamano - 1];
         tamano--;
         bajar(0);
-        return root;
+        return raiz;
     }
 
     void subir(int i) {
