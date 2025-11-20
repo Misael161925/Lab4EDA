@@ -97,9 +97,9 @@ public class ColaPrioridadPacientes {
 
     void redimensionar() {
         capacidad *= 2;
-        Paciente[] newHeap = new Paciente[capacidad];
-        System.arraycopy(heap, 0, newHeap, 0, tamano);
-        heap = newHeap;
+        Paciente[] nuevoHeap = new Paciente[capacidad];
+        System.arraycopy(heap, 0, nuevoHeap, 0, tamano);
+        heap = nuevoHeap;
     }
 
     int getTamano() {
