@@ -37,11 +37,11 @@ public class ColaPrioridadPacientes {
     Paciente extraerMin() {
         if (estaVacia()) return null;
 
-        Paciente raiz = heap[0];
+        Paciente root = heap[0];
         heap[0] = heap[tamano - 1];
         tamano--;
         bajar(0);
-        return raiz;
+        return root;
     }
 
     void subir(int i) {
@@ -97,9 +97,9 @@ public class ColaPrioridadPacientes {
 
     void redimensionar() {
         capacidad *= 2;
-        Paciente[] nuevoHeap = new Paciente[capacidad];
-        System.arraycopy(heap, 0, nuevoHeap, 0, tamano);
-        heap = nuevoHeap;
+        Paciente[] newHeap = new Paciente[capacidad];
+        System.arraycopy(heap, 0, newHeap, 0, tamano);
+        heap = newHeap;
     }
 
     int getTamano() {
