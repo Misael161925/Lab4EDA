@@ -60,6 +60,7 @@ public class Paciente implements Comparable<Paciente> {
     public Stack<String> getHistorialCambios() { 
         return historialCambios; 
     }
+    
     public void setHistorialCambios(Stack<String> historialCambios) { 
         this.historialCambios = historialCambios; 
     }
